@@ -1,3 +1,5 @@
+#!/usr/local/bin/python
+# -*- coding: utf-8 -*-
 
 import unittest
 from solver import solve_tridiagonal_matrix
@@ -21,7 +23,6 @@ class KnownCasesTest(unittest.TestCase):
 		matrix = self.create_tridiagonal_matrix(initial)
 		# assert matrix.validate()
 		result = solve_tridiagonal_matrix(matrix)
-		print result
 		self.assertEqual(len(result), len(expected), "Wrong length of array returned by solver function")
 		for res, exp in zip(result, expected):
 			self.assertAlmostEqual(res, exp, accuracy)
@@ -81,9 +82,9 @@ class KnownCasesTest(unittest.TestCase):
 			[1.0 , 26.0, 4.0 , 20.0],
 			[8.0 , 38.0, 21.0, 48.0],
 			[11.0, 41.0, 17.0, 16.0],
-			[4.0 , 47.0, 22.0, 8.0],  
-			[2.0 , 26.0, 9.0 , 1.0], 
-			[11.0, 37.0, 0.0 , 3.0],
+			[4.0 , 47.0, 22.0, 8.0 ],  
+			[2.0 , 26.0, 9.0 , 1.0 ], 
+			[11.0, 37.0, 0.0 , 3.0 ],
 		]
 		EXPECTED_RESULT = [
 			 0.738479,
@@ -146,7 +147,7 @@ class KnownCasesTest(unittest.TestCase):
 			 0.737681,
 			 0.923688,
 		]
-		self.default_tridiagonal_solve_test(INITIAL_MATRIX, EXPECTED_RESULT, 3)
+		self.default_tridiagonal_solve_test(INITIAL_MATRIX, EXPECTED_RESULT, 6)
 
 
 

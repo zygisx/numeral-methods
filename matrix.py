@@ -1,4 +1,7 @@
 
+#!/usr/local/bin/python
+# -*- coding: utf-8 -*-
+
 class Matrix(object):
 	""" Class to hold all matrix data.
 	"""

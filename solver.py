@@ -1,3 +1,6 @@
+#!/usr/local/bin/python
+# -*- coding: utf-8 -*-
+
 from matrix import TridiagonalMatrix
 import time
 
@@ -18,7 +21,6 @@ def solve_tridiagonal_matrix(matrix):
 	for i in xrange(len(matrix)-2, -1, -1): # loop from one before last to 0 
 		result[i] = C[i]*result[i+1] + D[i]
 	return result
-
-
+	
 
 
