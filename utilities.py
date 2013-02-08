@@ -1,5 +1,10 @@
+#!/usr/local/bin/python
+# -*- coding: utf-8 -*-
+
 from random import randrange
+from sys import argv
 import time
+
 
 from matrix import TridiagonalMatrix, Line
 
@@ -46,7 +51,7 @@ def tridiagonal_to_compact_matrix_string(initial_matrix):
 	return matrix
 
 def random_tridiagonal_matrix(n=3):
-	""" Returns random tridiagonal matrix as TridiagonalMatrix object
+	""" Returns random tridiagobal matrix as TridiagonalMatrix object
 	"""
 	matrix = []
 	valid = False
@@ -68,10 +73,10 @@ def random_tridiagonal_matrix(n=3):
 		isValid = compare
 	return matrix
 
-DEFAULT_MATRIX_SIZE = 4
+DEFAULT_MATRIX_SIZE = 40
 
 if __name__ == '__main__':
-	n = int(args[1]) if len(args[1]) > 1 else DEFAULT_MATRIX_SIZE
+	n = int(argv[1]) if len(argv) > 1 else DEFAULT_MATRIX_SIZE
 	print "Random %dx%d matrix:" % (n, n)
 	rand_matrix = random_tridiagonal_matrix(n)
 	print tridiagonal_to_full_matrix_string(rand_matrix)
