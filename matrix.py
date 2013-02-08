@@ -1,11 +1,4 @@
 
-class TridiagonalMatrix(Matrix):
-	""" Class to hold tridiagonal matrix data 
-	"""
-	def __init__(self):
-		Matrix.__init__(self)
-
-
 class Matrix(object):
 	""" Class to hold all matrix data.
 	"""
@@ -13,8 +6,8 @@ class Matrix(object):
 		self.lines = []
 		self.description = ""
 
-	def append_line(line):
-		self.lines.append(Line())
+	def append_line(self, line):
+		self.lines.append(Line(line))
 
 	def __getitem__(self, key):
 		return self.lines[key]
@@ -25,7 +18,11 @@ class Matrix(object):
 	def __len__(self):
 		return len(self.lines)
 
-
+class TridiagonalMatrix(Matrix):
+	""" Class to hold tridiagonal matrix data 
+	"""
+	def __init__(self):
+		Matrix.__init__(self)
 
 
 
@@ -33,7 +30,7 @@ class Line(object):
 	""" Class describe line in matrix. 
 		For interacting with matrix lines like high level objects.
 	"""
-	def __init__(self, values=[]]):
+	def __init__(self, values=[]):
 		assert isinstance(values, list)
 		self.line = values
 
@@ -41,8 +38,8 @@ class Line(object):
 		return self.line[key]
 	
 	@property
-	def res():
-		return self.line[-1]
+	def res(self):
+		return self[-1]
 
 	#Properties for simpler tridiagonal matrix access
 
