@@ -15,13 +15,10 @@ def solve_tridiagonal_matrix(matrix):
 	# fill result list with zeros
 	result = [0 for _ in xrange(len(matrix))]
 	result[-1] = D[-1]
-	for i in xrange(len(matrix)-2, -1, -1):
+	for i in xrange(len(matrix)-2, -1, -1): # loop from one before last to 0 
 		result[i] = C[i]*result[i+1] + D[i]
 	return result
 
-def time_function(func, *args, **kwargs):
-	start = time.Clock()
-	ret_val = func(*args, **kwargs)
-	end = time.Clock()
-	return (start-end), ret_val
+
+
 
