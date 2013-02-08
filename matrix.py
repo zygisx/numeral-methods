@@ -25,13 +25,23 @@ class TridiagonalMatrix(Matrix):
 		Matrix.__init__(self)
 
 
+	def validate(self):
+		isStrictConditionSatisfied = False
+		for line in self:
+			isStrictConditionSatisfied = isStrictConditionSatisfied or line.b > line.a + line.c
+			if line.b < line.a + line.c:
+				return False
+		return isStrictConditionSatisfied
+
+
 
 class Line(object):
 	""" Class describe line in matrix. 
 		For interacting with matrix lines like high level objects.
 	"""
 	def __init__(self, values=[]):
-		assert isinstance(values, list)
+		# print values
+		# assert isinstance(values, list)
 		self.line = values
 
 	def __getitem__(self, key):
@@ -52,3 +62,6 @@ class Line(object):
 	@property
 	def c(self):
 		return self[2]
+
+	def __repr__(self):
+		return str(self.line)
