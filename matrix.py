@@ -42,7 +42,7 @@ class Line(object):
 	""" Class describe line in matrix. 
 		For interacting with matrix lines like high level objects.
 	"""
-	def __init__(self, values=[]):
+	def __init__(self, values=list()):
 		# print values
 		# assert isinstance(values, list)
 		self.line = values
