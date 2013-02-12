@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import unittest
-from solver import solve_tridiagonal_matrix
 from matrix import TridiagonalMatrix
 
 DEFAULT_ACCURACY = 7
@@ -22,7 +21,7 @@ class KnownCasesTest(unittest.TestCase):
 	def default_tridiagonal_solve_test(self, initial, expected, accuracy=DEFAULT_ACCURACY):
 		matrix = self.create_tridiagonal_matrix(initial)
 		# assert matrix.validate()
-		result = solve_tridiagonal_matrix(matrix)
+		result = matrix.solve()
 		self.assertEqual(len(result), len(expected), "Wrong length of array returned by solver function")
 		for res, exp in zip(result, expected):
 			self.assertAlmostEqual(res, exp, accuracy)
