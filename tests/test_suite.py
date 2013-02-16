@@ -3,7 +3,8 @@
 
 import unittest
 from tridiagonal_solver_test import KnownCasesTest
-from spline_test import RangesTest, SplineExample1CalculationTest
+from spline_test import RangesTest, SplineExample1CalculationTest 
+from parser_test import ParserTest
 
 class Task_1_TestSuite(unittest.TestSuite):
 	 
@@ -15,6 +16,7 @@ class Task_1_TestSuite(unittest.TestSuite):
 		self.add(KnownCasesTest)
 		self.add(RangesTest)
 		self.add(SplineExample1CalculationTest)
+		self.add(ParserTest)
 		#TODO: add more test cases here
 
 		return self
