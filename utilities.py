@@ -97,7 +97,10 @@ if __name__ == '__main__':
 		print tridiagonal_to_compact_matrix_string(rand_matrix)
 		time, res = time_function(rand_matrix.solve)
 		print 
-		print res
+		print "Result:"
+		for i, num in enumerate(res):
+			print "X%d= %f" % (i+1, num)
+		print 
 		print "Time to solve:", time
 	else:
 		print "Too less time."
