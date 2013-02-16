@@ -20,21 +20,22 @@ MENU = \
 # FUNCTION = lambda x: math.pow(math.e, -0.5*x) * math.cos(x)   # 5
 # FUNCTION = lambda x: x**3 - 5*x**2 + 3*x + 4
 # FUNCTION = lambda x: x**2
-
-FUNCTION = lambda x : math.sqrt(x) - math.cos(1.5*x) # 12
+FUNCTION = lambda x : (1+x)*math.sin(x)
+# FUNCTION = lambda x : math.sqrt(x) - math.cos(1.5*x) # 12
 
 ### Binary task
 BINARY_NUMBER = "001100"
-BINAZY_TAKS_FUNCTION = lambda x: 209 if BINARY_NUMBER[x] == "1" else 0
+BINARY_TASK_FUNCTION = lambda x: 209 if x.is_integer() and BINARY_NUMBER[int(x)] == "1" else 0
 
-RANGE_SPLITS = 1000
+DEFAULT_RANGE_START = 0
+DEFAULT_RANGE_END = 8
+RANGE_SPLITS = 10
 
-def get_int_input(message=""):
+def get_int_or_empty_input(message=""):
 	try:
 		return int(raw_input(message))
 	except ValueError:
-		print "Not a number. Please enter number."
-		return get_int_input()
+		return ""
 
 def get_float_or_empty_input(message=""):
 	try:
@@ -46,17 +47,28 @@ def get_float_or_empty_input(message=""):
 
 def main():
 	print MENU
-	choose = get_int_input()
+	choose = get_int_or_empty_input()
 
 	while choose:
-		if choose == 1:
-			range_start = get_int_input("Enter range start: ")
-			range_end = get_int_input("Enter range end: ")
+		if choose == 1 or choose == 2:
+			if choose == 1:
+				range_start = get_int_or_empty_input("Enter range start [%d by default]: " % DEFAULT_RANGE_START)
+				if range_start == "": range_start = DEFAULT_RANGE_START 
+				range_end = get_int_or_empty_input("Enter range end[%d by default]: " % DEFAULT_RANGE_END)
+				if range_end == "": range_end = DEFAULT_RANGE_END 
 
-			spline = Spline(range_start, range_end, RANGE_SPLITS, FUNCTION)
+				range_splits = RANGE_SPLITS
+				function = FUNCTION
+			else:
+				range_start = 0
+				range_end = 5
+				range_splits = 5
+				function = BINARY_TASK_FUNCTION
+
+			spline = Spline(range_start, range_end, range_splits, function)
 			
 			print "Maple functions:"
-			print "s := spline(%s, %s, x, cubic)" % (str(spline.x), str(spline.x))
+			print "s := spline(%s, %s, x, cubic)" % (str(spline.x), str(spline.y))
 			print "plot(s, x=%d..%d, thickness = 2)" % (range_start, range_end)
 			print
 			print "POINTS:"
@@ -81,7 +93,7 @@ def main():
 				try:
 					spline.plot_to_file(file_name)
 				except IOError:
-					print "File or directory don't exist."
+					print "Wrong path."
 			else:
 				spline.plot_on_screen()
 
@@ -93,22 +105,25 @@ def main():
 					print "Number %.3f not in range. Enter number again." % point
 				point = get_float_or_empty_input("Enter x value: ")
 
-		elif choose == 2:
-			pass
 		elif choose == 3:
 			file_name = raw_input("Enter file name for matrix [data/1.matrix by default]: ") or "data/1.matrix"
-			parser = TridiagonalMatrixParser()
+			matrix_type = raw_input("Enter f - if matrix full, c - if matrix compact [full by default]: ")
 
-			matrix = parser.parse_from_tridiagonal_matrix(file_name)
+			parser = TridiagonalMatrixParser()
+			if matrix_type.startswith("c"):
+				matrix = parser.parse_from_tridiagonal_matrix(file_name)
+			else:
+				matrix = parser.parse_from_full_matrix(file_name)
 
 			if matrix.validate():
 				for i, res in enumerate(matrix.solve()):
 					print "X%d= %f" % (i+1, res)
 			else:
 				print "Not valid matrix."
-
+		else:
+			print "Bad choose."
 		print MENU
-		choose = int(raw_input())
+		choose = get_int_or_empty_input()
 
 if __name__ == '__main__':
 	main()
