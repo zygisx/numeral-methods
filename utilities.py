@@ -27,7 +27,8 @@ def tridiagonal_to_full_matrix_string(initial_matrix):
 		l[index]     = line.b
 		l[index + 1] = line.c
 		l[-1]        = line.res
-		matrix += " ".join("%.1f" % x for x in l)
+		matrix += " ".join("%.1f" % x for x in l[:-1])
+		matrix += "\t\t%.1f" % l[-1]
 		matrix += "\n" 
 
 		index += 1
@@ -36,7 +37,8 @@ def tridiagonal_to_full_matrix_string(initial_matrix):
 	l[-3] = initial_matrix[-1].a
 	l[-2] = initial_matrix[-1].b
 	l[-1] = initial_matrix[-1].res
-	matrix += " ".join("%.1f" % x for x in l)
+	matrix += " ".join("%.1f" % x for x in l[:-1])
+	matrix += "\t\t%.1f" % l[-1] 
 
 	return matrix
 
@@ -84,7 +86,7 @@ def silly_tridiagonal_martix(n=3):
 	return matrix
 
 
-DEFAULT_MATRIX_SIZE = 50
+DEFAULT_MATRIX_SIZE = 32
 
 if __name__ == '__main__':
 	n = int(argv[1]) if len(argv) > 1 else DEFAULT_MATRIX_SIZE
