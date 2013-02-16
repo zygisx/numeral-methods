@@ -1,6 +1,7 @@
 #!/usr/local/bin/python
 # -*- coding: utf-8 -*-
 from spline import Spline
+from matrix_parser import TridiagonalMatrixParser
 
 import math
 from multiprocessing import Process
@@ -82,8 +83,6 @@ def main():
 				except IOError:
 					print "File or directory don't exist."
 			else:
-				# asynchronous plot show to not block console while showing plot
-				# threading.Thread(target=spline.plot_on_screen)
 				spline.plot_on_screen()
 
 			point = get_float_or_empty_input("Enter x value: ")
@@ -97,7 +96,16 @@ def main():
 		elif choose == 2:
 			pass
 		elif choose == 3:
-			pass
+			file_name = raw_input("Enter file name for matrix [data/1.matrix by default]: ") or "data/1.matrix"
+			parser = TridiagonalMatrixParser()
+
+			matrix = parser.parse_from_tridiagonal_matrix(file_name)
+
+			if matrix.validate():
+				for i, res in enumerate(matrix.solve()):
+					print "X%d= %f" % (i+1, res)
+			else:
+				print "Not valid matrix."
 
 		print MENU
 		choose = int(raw_input())
