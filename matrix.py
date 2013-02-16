@@ -68,6 +68,9 @@ class Line(object):
 
 	def __getitem__(self, key):
 		return self.line[key]
+
+	def __setitem__(self, key, value):
+		self.line[key] = value
 	
 	@property
 	def res(self):
