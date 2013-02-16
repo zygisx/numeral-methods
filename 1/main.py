@@ -20,8 +20,9 @@ MENU = \
 # FUNCTION = lambda x: math.pow(math.e, -0.5*x) * math.cos(x)   # 5
 # FUNCTION = lambda x: x**3 - 5*x**2 + 3*x + 4
 # FUNCTION = lambda x: x**2
-FUNCTION = lambda x : (1+x)*math.sin(x)
-# FUNCTION = lambda x : math.sqrt(x) - math.cos(1.5*x) # 12
+# FUNCTION = lambda x : (1+x)*math.sin(x) # 22
+
+FUNCTION = lambda x : math.sqrt(x) - math.cos(1.5*x) # 12
 
 ### Binary task
 BINARY_NUMBER = "001100"
