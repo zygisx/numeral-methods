@@ -15,8 +15,8 @@ class Spline(object):
 		self.function = function
 		self.x = self.ranges.points
 		self.y = [self.function(x) for x in self.x]
-		self.__h = []
-		self.__g = []
+		self.h = []
+		self.g = []
 
 		self.n = len(self.x)
 
@@ -33,7 +33,7 @@ class Spline(object):
 
 	def find_h(self):
 		for i in xrange(1, self.n):
-			self.__h.append(self.x[i] - self.x[i-1])
+			self.h.append(self.x[i] - self.x[i-1])
 
 	def find_g(self):
 		matrix = TridiagonalMatrix()
@@ -41,12 +41,12 @@ class Spline(object):
 		matrix.append_line([0, 1, 0, 0])
 		for i in xrange(1, self.n-1):
 			matrix.append_line(
-				[self.__h[i-1], 2*(self.__h[i-1] + self.__h[i]), self.__h[i], 6*((self.y[i+1] - self.y[i]) / self.__h[i] - (self.y[i] - self.y[i-1]) / self.__h[i-1])]
+				[self.h[i-1], 2*(self.h[i-1] + self.h[i]), self.h[i], 6*((self.y[i+1] - self.y[i]) / self.h[i] - (self.y[i] - self.y[i-1]) / self.h[i-1])]
 			)
 		matrix.append_line([0, 1, 0, 0])
-		self.__g = matrix.solve()
-		self.__g[0]  = 0
-		self.__g[-1] = 0
+		self.g = matrix.solve()
+		self.g[0]  = 0
+		self.g[-1] = 0
 
 	def draw(self):
 		t = np.arange(self.ranges.start, self.ranges.end, TICKNESS) 
@@ -63,18 +63,18 @@ class Spline(object):
 	
 
 	
-	G = lambda self, i: self.__g[i] / 2.0
-	H = lambda self, i: (self.__g[i+1] - self.__g[i]) / (6 * self.__h[i])
-	E = lambda self, i: (self.y[i+1] - self.y[i]) / self.__h[i] - self.__g[i+1] * self.__h[i] / 6.0 - self.__g[i] * self.__h[i] / 3.0
+	G = lambda self, i: self.g[i] / 2.0
+	H = lambda self, i: (self.g[i+1] - self.g[i]) / (6 * self.h[i])
+	E = lambda self, i: (self.y[i+1] - self.y[i]) / self.h[i] - self.g[i+1] * self.h[i] / 6.0 - self.g[i] * self.h[i] / 3.0
 
 class Ranges(object):
 	def __init__(self, start, end, splits=10):
 		self.start = float(start)
 		self.end = float(end)
 		self.splits = splits
-		self.__get_points()
+		self.get_points()
 
-	def __get_points(self):
+	def get_points(self):
 		step = (self.end - self.start) / self.splits
 
 		self.points = []

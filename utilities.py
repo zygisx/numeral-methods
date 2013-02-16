@@ -24,7 +24,7 @@ def tridiagonal_to_full_matrix_string(initial_matrix):
 	for line in initial_matrix[:-1]:
 		l = [0 for i in range(n+1)]
 		l[index - 1] = line.a
-		l[index]	 = line.b
+		l[index]     = line.b
 		l[index + 1] = line.c
 		l[-1]        = line.res
 		matrix += " ".join("%.1f" % x for x in l)
@@ -84,19 +84,20 @@ def silly_tridiagonal_martix(n=3):
 	return matrix
 
 
-DEFAULT_MATRIX_SIZE = 10000000
+DEFAULT_MATRIX_SIZE = 50
 
 if __name__ == '__main__':
 	n = int(argv[1]) if len(argv) > 1 else DEFAULT_MATRIX_SIZE
 	print "Random %dx%d matrix:" % (n, n)
-	# rand_matrix = random_tridiagonal_matrix(n)
-	rand_matrix = silly_tridiagonal_martix(n)
+	rand_matrix = random_tridiagonal_matrix(n)
+	# rand_matrix = silly_tridiagonal_martix(n)
 	if rand_matrix:
-		# print tridiagonal_to_full_matrix_string(rand_matrix)
+		print tridiagonal_to_full_matrix_string(rand_matrix)
 		print 
-		# print tridiagonal_to_compact_matrix_string(rand_matrix)
-		from solver import solve_tridiagonal_matrix
-		time, res = time_function(solve_tridiagonal_matrix, rand_matrix)
+		print tridiagonal_to_compact_matrix_string(rand_matrix)
+		time, res = time_function(rand_matrix.solve)
+		print 
+		print res
 		print "Time to solve:", time
 	else:
 		print "Too less time."

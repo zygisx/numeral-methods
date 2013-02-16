@@ -39,14 +39,12 @@ class SplineExample1CalculationTest(unittest.TestCase):
 
 	def test_h_values(self):
 
-
 		self.assertEqual(len(self.spline.h), 3)
 		self.assertEqual(self.spline.h[0], 1.0) 
 		self.assertEqual(self.spline.h[1], 1.0) 
 		self.assertEqual(self.spline.h[2], 1.0) 
 
 	def test_g_values(self):
-
 
 		self.assertEqual(len(self.spline.g), 4)
 		self.assertEqual(self.spline.g[0], 0.0) 
@@ -56,13 +54,11 @@ class SplineExample1CalculationTest(unittest.TestCase):
 
 	def test_e_values(self):
 
-
 		self.assertAlmostEqual(self.spline.E(0), 0.1)
 		self.assertAlmostEqual(self.spline.E(1), 1.3)
 		self.assertAlmostEqual(self.spline.E(2), 0.7) 
 
 	def test_G_values(self):
-
 
 		self.assertAlmostEqual(self.spline.G(0), 0.0)
 		self.assertAlmostEqual(self.spline.G(1), 1.2)
@@ -70,13 +66,11 @@ class SplineExample1CalculationTest(unittest.TestCase):
 
 	def test_H_values(self):
 
-
 		self.assertAlmostEqual(self.spline.H(0), 0.4)
 		self.assertAlmostEqual(self.spline.H(1), -1.0)
 		self.assertAlmostEqual(self.spline.H(2), 0.6) 
 
 	def test_spline_y_value(self):
-
 
 		self.assertAlmostEqual(self.spline.f(0), 0.0)
 		self.assertAlmostEqual(self.spline.f(0.25), 0.03125)
