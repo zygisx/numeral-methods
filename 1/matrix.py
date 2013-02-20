@@ -45,9 +45,9 @@ class TridiagonalMatrix(Matrix):
 
 		# loop handle all elements except first
 		for line in matrix[1:]:
-			const = line.a*C[-1] + line.b
-			C.append( -line.c / const )
-			D.append( (line.res - line.a*D[-1]) / const)
+			denominator = line.a*C[-1] + line.b
+			C.append( -line.c / denominator )
+			D.append( (line.res - line.a*D[-1]) / denominator)
 
 		# fill result list with zeros
 		result = [0 for _ in xrange(len(matrix))]
@@ -63,8 +63,7 @@ class Line(object):
 		For interacting with matrix lines like high level objects.
 	"""
 	def __init__(self, values=list()):
-		# print values
-		# assert isinstance(values, list)
+		assert isinstance(values, list)
 		self.line = values
 
 	def __getitem__(self, key):

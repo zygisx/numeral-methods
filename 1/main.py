@@ -4,7 +4,6 @@ from spline import Spline
 from matrix_parser import TridiagonalMatrixParser
 
 import math
-from multiprocessing import Process
 
 MENU = \
 """
@@ -50,7 +49,7 @@ def main():
 	print MENU
 	choose = get_int_or_empty_input()
 
-	while choose:
+	while choose != 0:
 		if choose == 1 or choose == 2:
 			if choose == 1:
 				range_start = get_int_or_empty_input("Enter range start [%d by default]: " % DEFAULT_RANGE_START)
@@ -109,18 +108,23 @@ def main():
 		elif choose == 3:
 			file_name = raw_input("Enter file name for matrix [data/1.matrix by default]: ") or "data/1.matrix"
 			matrix_type = raw_input("Enter f - if matrix full, c - if matrix compact [full by default]: ")
+			try:
+				parser = TridiagonalMatrixParser()
+				if matrix_type.startswith("c"):
+					matrix = parser.parse_from_tridiagonal_matrix(file_name)
+				else:
+					matrix = parser.parse_from_full_matrix(file_name)
 
-			parser = TridiagonalMatrixParser()
-			if matrix_type.startswith("c"):
-				matrix = parser.parse_from_tridiagonal_matrix(file_name)
-			else:
-				matrix = parser.parse_from_full_matrix(file_name)
+				if matrix.validate():
+					for i, res in enumerate(matrix.solve()):
+						print "X%d= %f" % (i+1, res)
+				else:
+					print "Matrix not valid."
+				
+			except IOError:
+				print "File does not exsist."
 
-			if matrix.validate():
-				for i, res in enumerate(matrix.solve()):
-					print "X%d= %f" % (i+1, res)
-			else:
-				print "Not valid matrix."
+			
 		else:
 			print "Bad choose."
 		print MENU
