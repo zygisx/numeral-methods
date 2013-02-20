@@ -31,8 +31,8 @@ class TridiagonalMatrix(Matrix):
 	def validate(self):
 		isStrictConditionSatisfied = False
 		for line in self:
-			isStrictConditionSatisfied = isStrictConditionSatisfied or line.b > line.a + line.c
-			if line.b < line.a + line.c:
+			isStrictConditionSatisfied = isStrictConditionSatisfied or abs(line.b) > abs(line.a) + abs(line.c)
+			if abs(line.b) < abs(line.a) + abs(line.c):
 				return False
 		return isStrictConditionSatisfied
 
@@ -45,8 +45,9 @@ class TridiagonalMatrix(Matrix):
 
 		# loop handle all elements except first
 		for line in matrix[1:]:
-			C.append( -line.c / (line.a*C[-1] + line.b) )
-			D.append( (line.res - line.a*D[-1]) / (line.a*C[-2] + line.b ))
+			const = line.a*C[-1] + line.b
+			C.append( -line.c / const )
+			D.append( (line.res - line.a*D[-1]) / const)
 
 		# fill result list with zeros
 		result = [0 for _ in xrange(len(matrix))]
