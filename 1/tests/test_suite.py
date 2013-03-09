@@ -17,6 +17,5 @@ class Task_1_TestSuite(unittest.TestSuite):
 		self.add(RangesTest)
 		self.add(SplineExample1CalculationTest)
 		self.add(ParserTest)
-		#TODO: add more test cases here
 
 		return self
