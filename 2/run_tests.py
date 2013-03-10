@@ -7,9 +7,9 @@ import unittest
 from tests.test_suite import Task_2_TestSuite
 
 def main():
-    task1 = Task_1_TestSuite()
+    task2 = Task_2_TestSuite()
     runner = unittest.TextTestRunner()
-    result = runner.run(task1.suite())
+    result = runner.run(task2.suite())
     exit_code = 0 if result.wasSuccessful() else -1
     sys.exit(exit_code)
 

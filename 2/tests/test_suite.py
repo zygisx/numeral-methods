@@ -2,15 +2,18 @@
 # -*- coding: utf-8 -*-
 
 import unittest
+from solve_tests import RelaxationTest, SecantTest
 
 
-class Task_1_TestSuite(unittest.TestSuite):
-	 
-	def add(self, test_case):
-		tests = unittest.defaultTestLoader.loadTestsFromTestCase(test_case)
-		self.addTests(tests)
+class Task_2_TestSuite(unittest.TestSuite):
 
-	def suite(self):
-		#TODO: add more test cases here
+    def add(self, test_case):
+        tests = unittest.defaultTestLoader.loadTestsFromTestCase(test_case)
+        self.addTests(tests)
 
-		return self
+    def suite(self):
+        self.add(RelaxationTest)
+        self.add(SecantTest)
+        # TODO: add more test cases here
+
+        return self
