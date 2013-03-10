@@ -6,6 +6,7 @@ import unittest
 
 from tests.test_suite import Task_1_TestSuite
 
+
 def main():
     task1 = Task_1_TestSuite()
     runner = unittest.TextTestRunner()
