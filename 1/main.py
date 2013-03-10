@@ -135,7 +135,7 @@ def main():
                 print "File does not exsist."
 
         else:
-            print "Bad choose."
+            print "Bad choise."
         print MENU
         choose = get_int_or_empty_input()
 
