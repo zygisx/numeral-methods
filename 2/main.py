@@ -68,16 +68,20 @@ def main():
 
             t = np.arange(range_start, range_end, TICKNESS)
             plt.plot(t, map(FUNCTION_G, t), t, map(lambda x: x, t))
-            # plt.plot(t, map(FUNCTION_G, t)) # to draw single plot
             plt.show()
 
         elif choose == 2:
             omega = get_float_or_empty_input("Enter omega value: ")
             if omega == "":
-                print "Not float value."
+                print "Omega is not float value."
             elif not (0 < omega <= 1):
                 print "Bad omega value not in (0;1]"
             else:
+                point = get_float_or_empty_input("Enter point value: ")
+                if point == "":
+                    print "Point is not float. Use default 0.0"
+                    point = 0.0
+
                 precision = get_float_or_empty_input(
                     "Enter precision [%.15f by default]: " % DEFAULT_PRECISION)
                 if precision == "":
@@ -85,8 +89,14 @@ def main():
 
                 relaxation = RelaxationMethod(
                     FUNCTION_G, DERIVATIVE_FUNCTION_G, omega)
-                result = relaxation.calculate(precision)
-                omega = relaxation.find_omega()
+                print
+                try:
+                    result = relaxation.calculate(point, precision)
+                    omega = relaxation.find_omega()
+                except ZeroDivisionError:
+                    print "Zero division detected, cant find answer."
+                    result = None
+                print
                 if result is not None:
                     print "Equation result %.15f with precision %.15f" % (result, precision)
                     print "Exact value 0.652919"
@@ -99,6 +109,10 @@ def main():
                 "Enter precision [%.15f by default]: " % DEFAULT_PRECISION)
             if precision == "":
                 precision = DEFAULT_PRECISION
+            point = get_float_or_empty_input("Enter point value: ")
+            if point == "":
+                print "Point is not float. Use default 0.0"
+                point = 0.0
 
             relaxation = RelaxationMethod(FUNCTION_G, DERIVATIVE_FUNCTION_G)
             omega = relaxation.find_omega()
@@ -108,7 +122,11 @@ def main():
                 print "Optimal omega is %.15f" % omega
                 print
                 print "Calculate with optimal omega: "
-                result = relaxation.calculate(precision)
+                try:
+                    result = relaxation.calculate(point, precision)
+                except ZeroDivisionError:
+                    print "Zero division detected, cant find answer."
+                    result = None
 
                 if result is not None:
                     print "Equation result %.15f with precision %.15f" % (result, precision)
@@ -127,7 +145,11 @@ def main():
             if precision == "": precision = DEFAULT_PRECISION
             
             secant = SecantMethod(FUNCTION_F)
-            result = secant.calculate(x0, x1, precision)
+            try:
+                result = secant.calculate(x0, x1, precision)
+            except ZeroDivisionError:
+                    print "Zero division detected, cant find answer."
+                    result = None
 
             if result is not None:
                 print "Equation result %.15f with precision %.15f" % (result, precision)

@@ -19,7 +19,7 @@ class RelaxationMethod(object):
         self.result = None
         self.logger = Logger(log_device, "%d. %.15f %.15f\n")
 
-    def calculate(self, precision=DEFAULT_PRECISION):
+    def calculate(self, point=0.0, precision=DEFAULT_PRECISION):
         n = 0
         x = 0.0
         x_new = self.function(x)
