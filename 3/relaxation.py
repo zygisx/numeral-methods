@@ -15,10 +15,12 @@ class Relaxation(object):
         """ Preconditions: matrix is symetrix and positive.
             Omega is in range (0, 2)
         """
+        if not 0 < self.omega < 2:
+            raise Exception("Omega must be in range (0, 2)")
         if not MatrixUtils.is_symetric(self.A):
-            return
-        # if not MatrixUtils.is_positive(self.A):
-        #     return
+            raise Exception("Matrix not symertic")
+        if not MatrixUtils.is_positive(self.A):
+            raise Exception("Matrix not positive definite")
 
         iterations = 0
         precision = 10000.0
@@ -41,11 +43,13 @@ class Relaxation(object):
             self.X = result
             
             precision = self.current_precision()
-            print iterations, precision
-            # self.iterations.append({'vector':copy(self.X), 'precision':precision})
+            
             iterations += 1
+
+            iter_str = " ".join("%.3f " % self.X[i,0] for i in  range(len(self.X)))
+            self.iterations.append("%d.  %s %.12f" % (iterations, iter_str, precision))
         
-        return self.X
+        return self.X, iterations
 
     def current_precision(self):
         precision = 0.0
