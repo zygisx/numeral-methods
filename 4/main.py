@@ -27,8 +27,8 @@ MENU = """
 2. 
 3. 
 """
-INPUT = 2
-# 58656263777
+INPUT = 3
+
 def handle_simpsons_task():
     print "{0: >8}\t{1: <16} {2: <14} {3: <18}".format(
                 "Nodes", "Result", "H", "Runge")
@@ -78,7 +78,11 @@ def main():
     elif INPUT == 2:
         handle_gaussian_task()
     elif INPUT == 3:
-        pass
+        ranges = 1
+        for i in range(10):
+            runge = RungeKutta(FUNCTION2, 0.0, 1.0, ranges, 1.0)
+            print i, runge.solve()
+            ranges *= 2
 
 
 if __name__ == "__main__":
