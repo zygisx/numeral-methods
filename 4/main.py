@@ -1,10 +1,11 @@
-from math import sin, exp
+from math import sin, exp, cos
 from simpsons import Simpsons
 from gaussian import Gaussian
 from runge_kutta import RungeKutta
 from utilities import runge_error
 
-FUNCTION = lambda x : sin(3*x) 
+FUNCTION  = lambda x : sin(3*x) 
+FUNCTION2 = lambda x, u : u * (cos(u - x/2.0))**2 + 0.1 * x**2
 # FUNCTION = lambda x : x*exp(2*x)
 class TASK1:
     HIGH = 5.0
