@@ -10,7 +10,7 @@ class Simpsons(object):
 
         self.h = None
 
-    def integrete(self):
+    def integrate(self):
         assert self.low < self.high
         assert self.n > 0
 
