@@ -1,6 +1,7 @@
 from math import sin, exp
 from simpsons import Simpsons
 from gaussian import Gaussian
+from runge_kutta import RungeKutta
 from utilities import runge_error
 
 FUNCTION = lambda x : sin(3*x) 
