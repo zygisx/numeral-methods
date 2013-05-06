@@ -3,12 +3,10 @@ from math import sin
 from simpsons import Simpsons
 from gaussian import Gaussian
 
-FUNCTION  = lambda x : sin(3*x) 
-
 class BaseIntegralTests(unittest.TestCase):
 
     def setUp(self):
-        self.function = FUNCTION
+        self.function = lambda x : sin(3*x) 
         self.accurate_result = 0.5865626376
         self.low = 0
         self.high = 5
