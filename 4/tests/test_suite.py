@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import unittest
+from integral_tests import SimpsonsTest, GaussianTest
 
 
 class Task_4_TestSuite(unittest.TestSuite):
@@ -11,6 +12,7 @@ class Task_4_TestSuite(unittest.TestSuite):
         self.addTests(tests)
 
     def suite(self):
-        # TODO: add more test cases here
+        self.add(SimpsonsTest)
+        self.add(GaussianTest)
 
         return self
