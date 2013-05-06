@@ -5,7 +5,7 @@ from runge_kutta import RungeKutta
 from utilities import runge_error
 
 FUNCTION  = lambda x : sin(3*x) 
-FUNCTION2 = lambda x, u : u * (cos(u - x/2.0))**2 + 0.1 * x**2
+FUNCTION2 = lambda x, y : y * cos(y - x/2.0)**2 + 0.1 * x**2
 # FUNCTION = lambda x : x*exp(2*x)
 class TASK1:
     HIGH = 5.0
@@ -21,11 +21,15 @@ class TASK2:
 
     NODES_LIMIT = 4096
 
+class TASK3:
+    N_LIMIT = 320
+    PRECISION = 6
 
 MENU = """
 1. Simpsons
-2. 
-3. 
+2. Gauss 3rd
+3. Runge Kutta 
+4. Runge Kutta [single h]
 """
 INPUT = 3
 
@@ -70,19 +74,44 @@ def handle_gaussian_task():
         prev_result = result
         nodes *= 2
 
+def handle_runge_kutta(u0):
+    print "{0: >8}\t{1: <16} {2: <14}".format(
+                "H", "Result", "Runge")
+    ranges = 10
+    prev_result = 0.0
+    while ranges <= TASK3.N_LIMIT:
+        runge = RungeKutta(FUNCTION2, u0=u0, start=0.0, end=1.0, ranges=ranges)
+        result, h = runge.solve()
+        if prev_result != 0:
+            runge = runge_error(prev_result, result, TASK3.PRECISION)
+            output = "{0: >8}\t{1: <16} {2: <14}".format(
+                h, result, runge)
+        else:
+            output = "{0: >8}\t{1: <16}".format(
+                h, result)
+        print output
+
+        prev_result = result
+        ranges *= 2
+
 def main():
-    # TODO handle input
+    print MENU
+    INPUT = int(raw_input("Option: "))
 
     if INPUT == 1:
         handle_simpsons_task()
     elif INPUT == 2:
         handle_gaussian_task()
     elif INPUT == 3:
-        ranges = 1
-        for i in range(10):
-            runge = RungeKutta(FUNCTION2, 0.0, 1.0, ranges, 1.0)
-            print i, runge.solve()
-            ranges *= 2
+        u0 = float(raw_input("Enter u0: "))
+        handle_runge_kutta(u0)
+    elif INPUT == 4:
+        u0 = float(raw_input("Enter u0: "))
+        ranges = float(raw_input("Enter ranges: "))
+        runge = RungeKutta(FUNCTION2, u0=u0, start=0.0, end=1.0, ranges=ranges)
+        result, h = runge.solve(output=True)
+        print "RESULT: {0} with h={1}".format(result, h)
+
 
 
 if __name__ == "__main__":
