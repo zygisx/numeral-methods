@@ -23,7 +23,7 @@ class Simpsons(object):
             x.append(x[-1] + self.h)
 
         sum1 = sum(self.function(x[i]) for i in xrange(1, self.n, 2))
-        # print sum1
+        # print sum1,
 
 
         sum2 = sum(self.function(x[i]) for i in xrange(2, self.n, 2))
